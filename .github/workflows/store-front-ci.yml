@@ -3,12 +3,8 @@ name: Store-Front CI/CD
 on:
   push:
     branches: [ main, master ]
-    paths:
-      - 'store-front/**'
   pull_request:
     branches: [ main, master ]
-    paths:
-      - 'store-front/**'
   workflow_dispatch:  # Allows manual triggering
 
 env:
@@ -51,7 +47,7 @@ jobs:
     - name: Build and push Docker image
       uses: docker/build-push-action@v5
       with:
-        context: ./store-front
+        context: .  # Changed from ./store-front to . (root directory)
         push: ${{ github.event_name != 'pull_request' }}
         tags: ${{ steps.meta.outputs.tags }}
         labels: ${{ steps.meta.outputs.labels }}
